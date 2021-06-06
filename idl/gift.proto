@@ -7,11 +7,11 @@ service GiftChain {
 }
 
 message Gift {
-    string nickname = 1;
-	string sender_ddress = 2;
+  string nickname = 1;
+	string sender_address = 2;
 	string content = 3;
-	int32 start_time = 4;
-	int32 end_time = 5;
+	int64 start_time = 4;
+	int64 end_time = 5;
 }
 
 message Reply {
