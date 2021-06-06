@@ -44,6 +44,6 @@ func (g *GiftBox) AddGiftToBox(gift Gift) {
 	g.gifts = append(g.gifts, gift)
 }
 
-func (g *GiftChain) AddGifgBoxToChain(giftbox GiftBox) {
+func (g *GiftChain) AddGiftBoxToChain(giftbox GiftBox) {
 	g.chain = append(g.chain, giftbox)
 }
