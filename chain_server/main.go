@@ -3,11 +3,13 @@ package main
 import (
 	"context"
 	pb "github.com/beautifultools/gift-chain/idl"
+	chain "github.com/beautifultools/gift-chain/chain"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"log"
 	"net"
+	"time"
 )
 
 const (
@@ -19,6 +21,16 @@ type server struct {
 }
 
 func (s *server) AddGift(ctx context.Context, gift *pb.Gift) (*pb.Reply, error) {
+	giftbox := chain.CreateGiftBox([]chain.Gift{}, time.Now().Unix(), "", "")
+
+	giftbox.AddGiftToBox(&chain.Gift{
+		Nickname:gift.Nickname,
+		SenderAddress:gift.SenderAddress,
+		Content:gift.Content,
+		StartTime:gift.StartTime,
+		EndTime:gift.EndTime,
+	})
+
 	return nil, status.Errorf(codes.Unimplemented, "method AddGift not implemented")
 }
 
