@@ -1,0 +1,17 @@
+syntax="proto3";
+
+option go_package = "github.com/beautifultools/gift-chain/grpc/neighbor";
+
+service NeighborGreeter {
+  rpc getNeighbors(NeighborOptions) returns (Neighbors) {}
+}
+
+message NeighborOptions{}
+
+message Neighbors {
+  repeated Neighbor neighbor = 1;
+}
+
+message Neighbor{
+  string address = 1;
+}

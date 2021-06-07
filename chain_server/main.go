@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	pb "github.com/beautifultools/gift-chain/idl"
+	pb "github.com/beautifultools/gift-chain/grpc/gift"
 	chain "github.com/beautifultools/gift-chain/chain"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
