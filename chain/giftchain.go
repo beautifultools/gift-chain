@@ -72,6 +72,6 @@ func (g *GiftChain) MakeGiftBox() {
 	g.gifts = []Gift{}
 }
 
-func (g *GiftChain) AddGiftBox(giftbox GiftBox) {
-	g.giftBoxes = append(g.giftBoxes, giftbox)
+func (g *GiftChain) AddGiftBox(giftbox *GiftBox) {
+	g.giftBoxes = append(g.giftBoxes, *giftbox)
 }
