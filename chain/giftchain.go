@@ -9,7 +9,8 @@ import (
 )
 
 type GiftChain struct {
-	chain     []GiftBox
+	giftBoxes []GiftBox
+	gifts     []Gift
 	neighbors []string
 	address   string
 }
@@ -33,7 +34,7 @@ func CreateGiftChain(serverAddress string) *GiftChain{
 	getNeighborAddressesByGivenServer(serverAddress)
 
 	return &GiftChain{
-		chain:     []GiftBox{},
+		giftBoxes: []GiftBox{},
 		neighbors: []string{},
 	}
 }
@@ -55,24 +56,22 @@ func getNeighborAddressesByGivenServer(serverAddress string) []string {
 	if err != nil {
 		log.Fatalf("fail to get neighbors: %v", err)
 	}
-	
+
 	return neighbors.Addresses
 }
 
-
-func CreateGiftBox(gifts []Gift, timestamp int64, nonce, previousHash string) *GiftBox {
-	return &GiftBox{
-		gifts:        gifts,
-		timestamp:    timestamp,
-		nonce:        nonce,
-		previousHash: previousHash,
-	}
-}
-
-func (g *GiftBox) AddGiftToBox(gift *Gift) {
+func (g *GiftChain) AddGift(gift *Gift) {
 	g.gifts = append(g.gifts, *gift)
 }
 
-func (g *GiftChain) AddGiftBoxToChain(giftbox GiftBox) {
-	g.chain = append(g.chain, giftbox)
+func (g *GiftChain) MakeGiftBox() {
+	g.giftBoxes = append(g.giftBoxes, GiftBox{
+		gifts:g.gifts,
+
+	})
+	g.gifts = []Gift{}
+}
+
+func (g *GiftChain) AddGiftBox(giftbox GiftBox) {
+	g.giftBoxes = append(g.giftBoxes, giftbox)
 }
