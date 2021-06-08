@@ -6,10 +6,37 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestAddGiftToBox(t *testing.T) {
-	gifts := []Gift{}
-	gifts = append(gifts, *CreateGift("john", "abcd", "create design of main screen", 000000, 111111))
-	giftBox := CreateGiftBox(gifts, 100000, "123", "bbcc")
+const serverAddress = "127.0.0.1:50051"
 
-	assert.Equal(t, len(giftBox.gifts), 1)
+func TestCreateGiftChain(t *testing.T) {
+	giftChain := CreateGiftChain(serverAddress)
+
+	assert.GreaterOrEqual(t, len(giftChain.neighbors), 1)
+}
+
+func TestGiftChain_AddGift(t *testing.T) {
+	giftChain := CreateGiftChain(serverAddress)
+
+	giftChain.AddGift(&Gift{})
+	assert.Equal(t, len(giftChain.gifts), 1)
+
+	giftChain.AddGift(&Gift{})
+	assert.Equal(t, len(giftChain.gifts), 2)
+}
+
+func TestGiftChain_AddGiftBox(t *testing.T) {
+	giftChain := CreateGiftChain(serverAddress)
+
+	giftChain.AddGiftBox(&GiftBox{})
+	assert.Equal(t, len(giftChain.giftBoxes), 1)
+}
+
+func TestGiftChain_MakeGiftBox(t *testing.T) {
+	giftChain := CreateGiftChain(serverAddress)
+
+	giftChain.MakeGiftBox()
+	assert.Equal(t, len(giftChain.giftBoxes), 1)
+
+	giftChain.MakeGiftBox()
+	assert.Equal(t, len(giftChain.giftBoxes), 1)
 }
